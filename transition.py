@@ -11,6 +11,7 @@ GPIO_BLUE = 17
 
 def setPwm(color):
     file = open("/dev/pi-blaster", "w")
+    print(hexPercent(color[0]))
     file.write(f"{GPIO_RED}={hexPercent(color[0])} {GPIO_GREEN}={hexPercent(color[1])} {GPIO_BLUE}={hexPercent(color[2])}")
     file.close()
 
