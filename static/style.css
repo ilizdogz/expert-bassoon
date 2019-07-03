@@ -1,0 +1,17 @@
+body {
+    font-family: "Inconsolata", monospace;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input {
+    font-family: "Inconsolata", monospace;
+    background: none;
+    border: 1px solid #FFF;
+    margin: 10px auto;
+    border-radius: 5px;
+    clear: both;
+    color: #FFF;
+    font-size: 1em;
+    display: block;
+}

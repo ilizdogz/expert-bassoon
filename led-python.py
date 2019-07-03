@@ -2,6 +2,10 @@ from flask import Flask, render_template, jsonify
 import RPi.GPIO as GPIO
 import time
 
+@app.route("/")
+def main():
+    return "index"
+
 # use channel numbers on the Broadcom SOC
 GPIO.setmode(GPIO.BCM)
 

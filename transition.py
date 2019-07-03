@@ -9,24 +9,10 @@ GPIO_RED = 4
 GPIO_GREEN = 18
 GPIO_BLUE = 17
 
-# defining the pins as output
-GPIO.setup(GPIO_RED, GPIO.OUT)
-GPIO.setup(GPIO_GREEN, GPIO.OUT)
-GPIO.setup(GPIO_BLUE, GPIO.OUT)
-
-# choosing a frequency for pwm
-PWM_FREQUENCY = 50
-
-# configure to use PWM
-COLOR_PWM = [ 
-    GPIO.PWM(GPIO_RED, PWM_FREQUENCY),
-    GPIO.PWM(GPIO_GREEN, PWM_FREQUENCY),
-    GPIO.PWM(GPIO_BLUE, PWM_FREQUENCY)
-]
-
-# For CATHODE this must be 0
-# For ANODE this must be 1
-COMMON_NODE = 1
+def setPwm(color):
+    file = open("/dev/pi-blaster", "w")
+    file.write(f"{GPIO_RED}={hexPercent(color[0])} {GPIO_GREEN}={hexPercent(color[1])} {GPIO_BLUE}={hexPercent(color[2])}")
+    file.close()
 
 def transition(currentColor, targetColor, duration, fps):
     distance = colorDistance(currentColor, targetColor)
@@ -62,14 +48,7 @@ def transitionStep(currentColor, targetColor, increment):
             currentColor[i] += increment[i]
             if currentColor[i] >= targetColor[i]:
                 increment[i] = 0
-    setColor(currentColor)
-
-def setColor(color):
-    for i in range(len(COLOR_PWM)):
-        percent = hexPercent(color[i])
-        if COMMON_NODE:
-            percent = 100 - percent
-        COLOR_PWM[i].ChangeDutyCycle(percent)
+    setPwm(currentColor)
 
 def hexPercent(color):
     percent = (color / float(0xFF)) * 100
@@ -77,9 +56,6 @@ def hexPercent(color):
 
 if __name__ == '__main__':
     try:
-        for i in range(len(COLOR_PWM)):
-            COLOR_PWM[i].start(1)
-
         duration = 2.0
         fps = 90.0
 
@@ -107,6 +83,3 @@ if __name__ == '__main__':
         pass
     finally:
         print("Program stopped")
-        for colorPwm in COLOR_PWM:
-            colorPwm.stop()
-        GPIO.cleanup()
