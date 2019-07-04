@@ -4,6 +4,8 @@ import time
 import math
 import os
 
+pi = pigpio.pi()
+
 # use channel numbers on the Broadcom SOC
 GPIO.setmode(GPIO.BCM)
 
@@ -17,9 +19,9 @@ def setPwm(color):
     # print(hexPercent(color[0]))
     # text = "echo '{}={}, {}={}, {}={}' >> /dev/pi-blaster"
     # text = text.format(GPIO_RED, color[0], GPIO_GREEN, color[1], GPIO_BLUE, color[2])
-    pigpio.set_PWM_dutycycle(GPIO_RED, color[0])
-    pigpio.set_PWM_dutycycle(GPIO_GREEN, color[1])
-    pigpio.set_PWM_dutycycle(GPIO_BLUE, color[2])
+    pi.set_PWM_dutycycle(GPIO_RED, color[0])
+    pi.set_PWM_dutycycle(GPIO_GREEN, color[1])
+    pi.set_PWM_dutycycle(GPIO_BLUE, color[2])
     # print(text)
     # os.system(text)
     # file.write(f"{GPIO_RED}={hexPercent(color[0])}, {GPIO_GREEN}={hexPercent(color[1])}, {GPIO_BLUE}={hexPercent(color[2])}")
@@ -93,4 +95,5 @@ if __name__ == '__main__':
         print("Intrerrupted by user")
         pass
     finally:
+        pi.stop()
         print("Program stopped")
