@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import pigpio
 import time
 import math
 import os
@@ -13,11 +14,14 @@ GPIO_BLUE = 17
 
 def setPwm(color):
     # file = open("/dev/pi-blaster", "w")
-    print(hexPercent(color[0]))
-    text = "echo '{}={}, {}={}, {}={}' >> /dev/pi-blaster"
-    text = text.format(GPIO_RED, hexPercent(color[0]), GPIO_GREEN, hexPercent(color[1]), GPIO_BLUE, hexPercent(color[2]))
-    print(text)
-    os.system(text)
+    # print(hexPercent(color[0]))
+    # text = "echo '{}={}, {}={}, {}={}' >> /dev/pi-blaster"
+    # text = text.format(GPIO_RED, color[0], GPIO_GREEN, color[1], GPIO_BLUE, color[2])
+    pigpio.set_PWM_dutycycle(GPIO_RED, color[0])
+    pigpio.set_PWM_dutycycle(GPIO_GREEN, color[1])
+    pigpio.set_PWM_dutycycle(GPIO_BLUE, color[2])
+    # print(text)
+    # os.system(text)
     # file.write(f"{GPIO_RED}={hexPercent(color[0])}, {GPIO_GREEN}={hexPercent(color[1])}, {GPIO_BLUE}={hexPercent(color[2])}")
     # file.close()
 
@@ -57,9 +61,9 @@ def transitionStep(currentColor, targetColor, increment):
                 increment[i] = 0
     setPwm(currentColor)
 
-def hexPercent(color):
-    percent = (color / 255)
-    return percent
+# def hexPercent(color):
+#     percent = (color / 255)
+#     return percent
 
 if __name__ == '__main__':
     try:
