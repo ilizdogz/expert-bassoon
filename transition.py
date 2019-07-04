@@ -95,5 +95,6 @@ if __name__ == '__main__':
         print("Intrerrupted by user")
         pass
     finally:
+        setPwm([0, 0, 0])
         pi.stop()
         print("Program stopped")
