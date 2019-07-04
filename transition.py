@@ -58,7 +58,7 @@ def transitionStep(currentColor, targetColor, increment):
     setPwm(currentColor)
 
 def hexPercent(color):
-    percent = (color / float(0xFF)) * 100
+    percent = (color / float(0xFF))
     return math.floor(percent)
 
 if __name__ == '__main__':
