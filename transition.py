@@ -58,7 +58,7 @@ def transitionStep(currentColor, targetColor, increment):
     setPwm(currentColor)
 
 def hexPercent(color):
-    percent = (color / float(0xFF)) * 100
+    percent = (color / 255)
     return percent
 
 if __name__ == '__main__':
@@ -69,12 +69,12 @@ if __name__ == '__main__':
         i = 0
         while 1:
             colors = [
-                [0xE8, 0x0B, 0x0B], # red
-                [0x0b, 0x12, 0xe8], # blue
-                [0xe8, 0xd5, 0x0b], # yellow
-                [0xdd, 0x0b, 0xe8], # purple
-                [0x1A, 0xe8, 0x0B], # green
-                [0x0b, 0xd5, 0xe8]  # teal
+                [255, 0, 0], # red
+                [0, 0, 255], # blue
+                [255, 255, 0], # yellow
+                [255, 0, 232], # purple
+                [0, 255, 0], # green
+                [0, 255, 255]  # teal
             ]
 
             currentColor = colors[i % len(colors)]
