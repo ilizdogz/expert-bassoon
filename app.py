@@ -15,13 +15,12 @@ TRANSITION_DURATION = 0.5
 
 @app.route("/")
 def main():
-    return render_template("index.html")
+    return render_template("index.html", color=currentColor)
 
 @app.route("/color", methods=["POST"])
 def set_color():
-    print(request.data)
-    print(request.form)
-    print(request.get_json())
+    data = json.loads(request.get_json())
+    # print(request.get_json())
     # transition(currentColor, color, TRANSITION_DURATION, FPS)
     # currentColor = color
     return jsonify({"success": True})
