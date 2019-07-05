@@ -14,7 +14,7 @@ TRANSITION_DURATION = 0.5
 def main():
     return render_template("index.html")
 
-@app.route("/color/<color>", methods=["GET"])
+@app.route("/color", methods=["GET"])
 def set_color(color):
     print(color)
     # transition(currentColor, color, TRANSITION_DURATION, FPS)

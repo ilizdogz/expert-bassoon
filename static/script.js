@@ -52,8 +52,8 @@ setColor = (jscolor) => {
     console.log(newColor)
     body.style.background = newColor;
     var rgb = hexToRgb(newColor);
-    xhttp.open("GET", `/color?[${newColor.r}, ${newColor.g}, ${newColor.b}])`, true);
-    xhttp.send();
+    req = open("GET", "/color", true);
+    req.send();
     // if (socket !== null) {
     //     socket.send(JSON.stringify({
     //         color: newColor,
