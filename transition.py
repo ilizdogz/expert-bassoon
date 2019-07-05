@@ -6,26 +6,15 @@ import os
 
 pi = pigpio.pi()
 
-# use channel numbers on the Broadcom SOC
-GPIO.setmode(GPIO.BCM)
-
 # defining the pins
 GPIO_RED = 4
 GPIO_GREEN = 18
 GPIO_BLUE = 17
 
 def setPwm(color):
-    # file = open("/dev/pi-blaster", "w")
-    # print(hexPercent(color[0]))
-    # text = "echo '{}={}, {}={}, {}={}' >> /dev/pi-blaster"
-    # text = text.format(GPIO_RED, color[0], GPIO_GREEN, color[1], GPIO_BLUE, color[2])
     pi.set_PWM_dutycycle(GPIO_RED, color[0])
     pi.set_PWM_dutycycle(GPIO_GREEN, color[1])
     pi.set_PWM_dutycycle(GPIO_BLUE, color[2])
-    # print(text)
-    # os.system(text)
-    # file.write(f"{GPIO_RED}={hexPercent(color[0])}, {GPIO_GREEN}={hexPercent(color[1])}, {GPIO_BLUE}={hexPercent(color[2])}")
-    # file.close()
 
 def transition(currentColor, targetColor, duration, fps):
     distance = colorDistance(currentColor, targetColor)
@@ -63,38 +52,34 @@ def transitionStep(currentColor, targetColor, increment):
                 increment[i] = 0
     setPwm(currentColor)
 
-# def hexPercent(color):
-#     percent = (color / 255)
-#     return percent
+# if __name__ == '__main__':
+#     try:
+#         duration = 2.0
+#         fps = 90.0
 
-if __name__ == '__main__':
-    try:
-        duration = 2.0
-        fps = 90.0
+#         i = 0
+#         while 1:
+#             colors = [
+#                 [255, 0, 0], # red
+#                 [0, 0, 255], # blue
+#                 [255, 255, 0], # yellow
+#                 [255, 0, 232], # purple
+#                 [0, 255, 0], # green
+#                 [0, 255, 255]  # teal
+#             ]
 
-        i = 0
-        while 1:
-            colors = [
-                [255, 0, 0], # red
-                [0, 0, 255], # blue
-                [255, 255, 0], # yellow
-                [255, 0, 232], # purple
-                [0, 255, 0], # green
-                [0, 255, 255]  # teal
-            ]
+#             currentColor = colors[i % len(colors)]
 
-            currentColor = colors[i % len(colors)]
+#             i = (i + 1) % len(colors)
+#             nextColor = colors[i]
 
-            i = (i + 1) % len(colors)
-            nextColor = colors[i]
+#             transition(currentColor, nextColor, duration, fps)
 
-            transition(currentColor, nextColor, duration, fps)
-
-        # close execution by pressing CTRL + C
-    except KeyboardInterrupt:
-        print("Intrerrupted by user")
-        pass
-    finally:
-        setPwm([0, 0, 0])
-        pi.stop()
-        print("Program stopped")
+#         # close execution by pressing CTRL + C
+#     except KeyboardInterrupt:
+#         print("Intrerrupted by user")
+#         pass
+#     finally:
+#         setPwm([0, 0, 0])
+#         pi.stop()
+#         print("Program stopped")
