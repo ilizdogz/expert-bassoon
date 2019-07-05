@@ -7,8 +7,6 @@ var p = document.querySelector("p");
 var turnOff = document.querySelector("#turnOff");
 var inputs = document.querySelectorAll("input");
 
-var req = new XMLHttpRequest();
-
 // var socket = new WebSocket("ws:localhost:8080");
 // var socket;
 
@@ -54,7 +52,8 @@ setColor = (jscolor) => {
     console.log(newColor)
     body.style.background = newColor;
     var rgb = hexToRgb(newColor);
-    req = open("POST", "http://192.168.1.9/color", true);
+    var req = new XMLHttpRequest();
+    req.open("POST", "http://192.168.1.9/color", true);
     req.setRequestHeader("Content-Type", "application/json")
     req.send(JSON.stringify({
         color: newColor
