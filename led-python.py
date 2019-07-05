@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 # import RPi.GPIO as GPIO
 import time
-from .transition import transition
+from transition import transition
 
 currentColor = [0, 0, 0]
 FPS = 30
