@@ -89,8 +89,8 @@ disable = () => {
     setColor("000");
 }
 
-connectSocket();
+// connectSocket();
 
 // color1.addEventListener("input", setColor);
-reconnect.addEventListener("click", connectSocket);
+// reconnect.addEventListener("click", connectSocket);
 turnOff.addEventListener("click", disable);
