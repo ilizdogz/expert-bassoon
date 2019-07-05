@@ -4,6 +4,7 @@ from flask_cors import CORS
 # import RPi.GPIO as GPIO
 import time
 from transition import transition
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -18,11 +19,9 @@ def main():
 
 @app.route("/color", methods=["GET"])
 def set_color():
-    print(request)
     print(request.data)
-    print(request.args)
-    print(request.form)
-    print(request.get_json())
+    data = json.loads(request.data)
+    print(data.color)
     # transition(currentColor, color, TRANSITION_DURATION, FPS)
     # currentColor = color
     return jsonify({"success": True})
