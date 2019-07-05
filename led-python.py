@@ -3,6 +3,8 @@ from flask import Flask, render_template, jsonify
 import time
 from transition import transition
 
+app = Flask(__name__)
+
 currentColor = [0, 0, 0]
 FPS = 30
 TRANSITION_DURATION = 0.5
