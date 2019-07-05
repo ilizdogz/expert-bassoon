@@ -1,5 +1,5 @@
 #!/usr/bin/env/python
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 # import RPi.GPIO as GPIO
 import time
 from transition import transition
