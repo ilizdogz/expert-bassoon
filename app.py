@@ -21,6 +21,7 @@ def set_color():
     print(request)
     print(request.data)
     print(request.args)
+    print(request.form)
     # transition(currentColor, color, TRANSITION_DURATION, FPS)
     # currentColor = color
     return jsonify({"success": True})
