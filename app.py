@@ -17,7 +17,7 @@ TRANSITION_DURATION = 0.5
 def main():
     return render_template("index.html")
 
-@app.route("/color", methods=["GET"])
+@app.route("/color", methods=["POST"])
 def set_color():
     print(request.data)
     print(request.form)
