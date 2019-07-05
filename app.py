@@ -20,6 +20,7 @@ def main():
 @app.route("/color", methods=["POST"])
 def set_color():
     data = json.loads(request.get_json())
+    print(data)
     # print(request.get_json())
     # transition(currentColor, color, TRANSITION_DURATION, FPS)
     # currentColor = color
