@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [[source]]
-url = "https://www.piwheels.org/simole"
+url = "https://www.piwheels.org/simple"
 name = "piwheels"
 verify_ssl = true
 
@@ -12,6 +12,8 @@ verify_ssl = true
 
 [packages]
 flask = "*"
+rpi-gpio = "*"
+pigpio = "*"
 
 [requires]
 python_version = "3.7"
