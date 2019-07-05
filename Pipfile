@@ -15,6 +15,7 @@ flask = "*"
 rpi-gpio = "*"
 pigpio = "*"
 pipenv = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
