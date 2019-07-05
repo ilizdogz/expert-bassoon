@@ -8,56 +8,58 @@ var turnOff = document.querySelector("#turnOff");
 var inputs = document.querySelectorAll("input");
 
 // var socket = new WebSocket("ws:localhost:8080");
-var socket;
+// var socket;
 
-connectSocket = () => {
-    socket = new WebSocket("ws:192.168.1.9:8080");
-    socket.onmessage = msg => {
-        var json = JSON.parse(msg.data);
-        switch (json.cod) {
-            case 200:
-                h1.textContent = json.isOn ? "połączono" : "włącz przyciskiem";
-                color.jscolor.fromString(json.currentColor.replace("#", ""));
-                setColor(json.currentColor.replace("#", ""));
-                break;
-            case 408:
-                h1.textContent = "inne urządzenie jest już połączone";
-                console.log("408")
-                socket.close();
-                break;
-            default:
-                h1.textContent = "wystąpił błąd. spróbuj ponownie później.";
-                console.log("error");
-                socket.close();
-                break;
-        }
-    }
+// connectSocket = () => {
+//     socket = new WebSocket("ws:192.168.1.9:8080");
+//     socket.onmessage = msg => {
+//         var json = JSON.parse(msg.data);
+//         switch (json.cod) {
+//             case 200:
+//                 h1.textContent = json.isOn ? "połączono" : "włącz przyciskiem";
+//                 color.jscolor.fromString(json.currentColor.replace("#", ""));
+//                 setColor(json.currentColor.replace("#", ""));
+//                 break;
+//             case 408:
+//                 h1.textContent = "inne urządzenie jest już połączone";
+//                 console.log("408")
+//                 socket.close();
+//                 break;
+//             default:
+//                 h1.textContent = "wystąpił błąd. spróbuj ponownie później.";
+//                 console.log("error");
+//                 socket.close();
+//                 break;
+//         }
+//     }
 
-    socket.onclose = () => {
-        h1.textContent = "rozłączono. odśwież stronę.";
-    }
-}
+//     socket.onclose = () => {
+//         h1.textContent = "rozłączono. odśwież stronę.";
+//     }
+// }
 
-hexToRgb = hex => {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
+// hexToRgb = hex => {
+//     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+//     return result ? {
+//         r: parseInt(result[1], 16),
+//         g: parseInt(result[2], 16),
+//         b: parseInt(result[3], 16)
+//     } : null;
+// }
 
 setColor = (jscolor) => {
     var newColor = `#${jscolor}`;
     console.log(newColor)
     body.style.background = newColor;
     var rgb = hexToRgb(newColor);
-    if (socket !== null) {
-        socket.send(JSON.stringify({
-            color: newColor,
-            changeOnce: true
-        }));
-    }
+    xhttp.open("GET", `/color?[${newColor.r}, ${newColor.g}, ${newColor.b}])`, true);
+    xhttp.send();
+    // if (socket !== null) {
+    //     socket.send(JSON.stringify({
+    //         color: newColor,
+    //         changeOnce: true
+    //     }));
+    // }
     var luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b; // per ITU-R BT.709
     if (luma < 40) {
         h1.style.color = "#FFF";
