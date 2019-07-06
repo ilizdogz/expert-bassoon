@@ -19,10 +19,8 @@ def main():
 
 @app.route("/color", methods=["POST"])
 def set_color():
-    print(request)
-    print(request.get_json())
-    # data = json.loads(request.get_json())
-    # print(data)
+    data = request.get_json()
+    print(data["color"])
     # transition(currentColor, color, TRANSITION_DURATION, FPS)
     # currentColor = color
     return jsonify({"success": True})
