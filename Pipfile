@@ -17,6 +17,7 @@ pigpio = "*"
 pipenv = "*"
 flask-cors = "*"
 gunicorn = "*"
+uwsgi = "*"
 
 [requires]
 python_version = "3.7"
