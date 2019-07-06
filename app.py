@@ -21,8 +21,8 @@ def main():
 def set_color():
     data = request.get_json()
     print(data["color"])
-    # transition(currentColor, color, TRANSITION_DURATION, FPS)
-    # currentColor = color
+    transition(currentColor, color, TRANSITION_DURATION, FPS)
+    currentColor = color
     return jsonify({"success": True})
 
 if __name__ == "__main__":
