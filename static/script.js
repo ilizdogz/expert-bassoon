@@ -1,9 +1,9 @@
-// var h1 = document.querySelector("h1");
+var h1 = document.querySelector("h1");
 // var color1 = document.querySelector(".color1");
 var color = document.querySelector("#color");
 var body = document.querySelector("body");
 // var reconnect = document.querySelector("#reconnect");
-var p = document.querySelector("p");
+// var p = document.querySelector("p");
 var turnOff = document.querySelector("#turnOff");
 var inputs = document.querySelectorAll("input");
 
@@ -66,19 +66,19 @@ setColor = (jscolor) => {
     // }
     var luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b; // per ITU-R BT.709
     if (luma < 40) {
-        // h1.style.color = "#FFF";
+        h1.style.color = "#FFF";
         // reconnect.style.borderColor = "#FFF";
         // reconnect.style.color = "#FFF";
         turnOff.style.borderColor = "#FFF";
         turnOff.style.color = "#FFF";
-        p.style.color = "#FFF";
+        // p.style.color = "#FFF";
     } else {
-        // h1.style.color = "#000";
+        h1.style.color = "#000";
         turnOff.style.borderColor = "#000";
         turnOff.style.color = "#000";
         // reconnect.style.borderColor = "#000";
         // reconnect.style.color = "#000";
-        p.style.color="#000";
+        // p.style.color="#000";
     }
 }
 

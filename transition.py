@@ -2,9 +2,15 @@ import RPi.GPIO as GPIO
 import pigpio
 import time
 import math
-import os
+# import os
+from datetime import datetime, timedelta
 
 pi = pigpio.pi()
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(27, GPIO.IN)
+
+isOn = False
+lastChange = datetime.now()
 
 # defining the pins
 GPIO_RED = 4
@@ -12,9 +18,14 @@ GPIO_GREEN = 18
 GPIO_BLUE = 17
 
 def setPwm(color):
-    pi.set_PWM_dutycycle(GPIO_RED, color[0])
-    pi.set_PWM_dutycycle(GPIO_GREEN, color[1])
-    pi.set_PWM_dutycycle(GPIO_BLUE, color[2])
+    if (isOn):
+        pi.set_PWM_dutycycle(GPIO_RED, color[0])
+        pi.set_PWM_dutycycle(GPIO_GREEN, color[1])
+        pi.set_PWM_dutycycle(GPIO_BLUE, color[2])
+    else:
+        pi.set_PWM_dutycycle(GPIO_RED, 0)
+        pi.set_PWM_dutycycle(GPIO_GREEN, 0)
+        pi.set_PWM_dutycycle(GPIO_BLUE, 0)
 
 def transition(currentColor, targetColor, duration, fps):
     distance = colorDistance(currentColor, targetColor)
@@ -52,6 +63,19 @@ def transitionStep(currentColor, targetColor, increment):
                 increment[i] = 0
     setPwm(currentColor)
 
+def checkForButton():
+    global lastChange
+    global isOn
+    while True:
+        if (GPIO.input(27)):
+            lastChange = datetime.now()
+        else:
+            if (datetime.now() - lastChange).seconds < 1:
+                isOn = True
+            else:
+                isOn = False
+        time.sleep(0.05)
+    
 # if __name__ == '__main__':
 #     try:
 #         duration = 2.0

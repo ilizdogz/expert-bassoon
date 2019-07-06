@@ -3,11 +3,12 @@ from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 # import RPi.GPIO as GPIO
 import time
-from transition import transition
+from transition import transition, checkForButton
 import json
 
 app = Flask(__name__)
 CORS(app)
+checkForButton()
 
 currentColor = [0, 0, 0]
 FPS = 30
