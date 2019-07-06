@@ -53,7 +53,7 @@ setColor = (jscolor) => {
     body.style.background = newColor;
     var rgb = hexToRgb(newColor);
     var req = new XMLHttpRequest();
-    req.open("POST", "http://192.168.1.9/color", true);
+    req.open("POST", "/color", true);
     req.setRequestHeader("Content-Type", "application/json")
     req.send(JSON.stringify({
         color: newColor
