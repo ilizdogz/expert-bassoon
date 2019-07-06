@@ -1,16 +1,16 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import pigpio
 import time
 import math
 # import os
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 
 pi = pigpio.pi()
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(27, GPIO.IN)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(27, GPIO.IN)
 
-isOn = False
-lastChange = datetime.now()
+# isOn = False
+# lastChange = datetime.now()
 
 # defining the pins
 GPIO_RED = 4
