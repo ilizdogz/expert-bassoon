@@ -30,4 +30,4 @@ def set_color():
     return jsonify({"success": True})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0',debug=True)
