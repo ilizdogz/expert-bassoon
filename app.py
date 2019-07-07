@@ -16,7 +16,8 @@ GPIO.setup(27, GPIO.IN)
 # checkForButton()
 isOn = False
 lastChange = datetime.now()
-currentColor = [0, 0, 0]
+currentColor = "#000000"
+savedColor = "#000000"
 FPS = 30
 TRANSITION_DURATION = 0.5
 
@@ -24,18 +25,22 @@ def checkForButton():
     global lastChange
     global isOn
     global currentColor
+    global savedColor
     while True:
         if (GPIO.input(27)):
+            if savedColor != currentColor:
+                transition(currentColor, savedColor, TRANSITION_DURATION, FPS)
+                currentColor = savedColor
             lastChange = datetime.now()
         else:
             if (datetime.now() - lastChange).seconds < 1:
                 isOn = True
             else:
                 isOn = False
-                if not (currentColor[0] == 0 & currentColor[1] == 0 & currentColor[2] == 0):
-                    color = [0, 0, 0]
-                    transition(currentColor, color, TRANSITION_DURATION, FPS)
-                    currentColor = color
+                if not currentColor == "#000000":
+                    savedColor = currentColor
+                    currentColor = "#000000"
+                    transition(currentColor, currentColor, TRANSITION_DURATION, FPS)
         time.sleep(0.05)
 
 @app.route("/")
@@ -47,12 +52,7 @@ def set_color():
     global currentColor
     data = request.get_json()
     print(data["color"])
-    color = data["color"].lstrip("#")
-    color =  list(int(color[i:i+2], 16) for i in (0, 2, 4))
-    if isOn:
-        color =  list(int(color[i:i+2], 16) for i in (0, 2, 4))
-    else:
-        color = [0, 0, 0]
+    color = data["color"] if isOn else "#000000"
     transition(currentColor, color, TRANSITION_DURATION, FPS)
     currentColor = color
     return jsonify({"success": True})

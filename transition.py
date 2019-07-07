@@ -28,6 +28,8 @@ def setPwm(color):
     #     pi.set_PWM_dutycycle(GPIO_BLUE, 0)
 
 def transition(currentColor, targetColor, duration, fps):
+    currentColor = hexToRgb(currentColor)
+    targetColor = hexToRgb(targetColor)
     distance = colorDistance(currentColor, targetColor)
     increment = calculateIncrement(distance, fps, duration)
 
@@ -62,6 +64,10 @@ def transitionStep(currentColor, targetColor, increment):
             if currentColor[i] >= targetColor[i]:
                 increment[i] = 0
     setPwm(currentColor)
+
+def hexToRgb(color):
+    color = color.lstrip("#")
+    return list(int(color[i:i+2], 16) for i in (0, 2, 4))
 
 # def checkForButton():
 #     global lastChange
