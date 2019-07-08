@@ -1,4 +1,5 @@
 #put this /etc/systemd/system/uwsgi.service, change dir if needed
+#add user www-data to group gpio
 [Unit]
 Description=uWSGI Service
 After=network.target
