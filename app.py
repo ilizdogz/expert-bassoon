@@ -53,13 +53,13 @@ def set_color():
     global currentColor
     data = request.get_json()
     print(data["color"])
-    color = data["color"] if isOn else "#000000"
-    print("Color: {} isOn: {}".format(color, isOn))
+    color = data["color"] #if isOn else "#000000"
+    # print("Color: {} isOn: {}".format(color, isOn))
     transition(currentColor, color, TRANSITION_DURATION, FPS)
     currentColor = color
     return jsonify({"success": True})
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=checkForButton, daemon=True)
-    thread.start()
+    # thread = threading.Thread(target=checkForButton, daemon=True)
+    # thread.start()
     app.run(host='0.0.0.0',debug=True)
