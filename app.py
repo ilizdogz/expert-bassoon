@@ -15,17 +15,16 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(27, GPIO.IN)
 # checkForButton()
 isOn = False
-lastChange = datetime.now()
 currentColor = "#000000"
 savedColor = "#000000"
 FPS = 30
 TRANSITION_DURATION = 0.5
 
 def checkForButton():
-    global lastChange
     global isOn
     global currentColor
     global savedColor
+    lastChange = datetime.now()
     while True:
         if (GPIO.input(27)):
             if savedColor != currentColor:
