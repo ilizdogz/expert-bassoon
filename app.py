@@ -29,7 +29,7 @@ def checkForButton():
     while True:
         if (GPIO.input(27)):
             if savedColor != currentColor:
-                # transition(currentColor, savedColor, TRANSITION_DURATION, FPS)
+                transition(currentColor, savedColor, TRANSITION_DURATION, FPS)
                 currentColor = savedColor
                 print("On! Saved: {} Current: {}".format(savedColor, currentColor))
             lastChange = datetime.now()
@@ -42,7 +42,7 @@ def checkForButton():
                     savedColor = currentColor
                     currentColor = "#000000"
                     print("Off! Saved: {} Current: {}".format(savedColor, currentColor))
-                    # transition(currentColor, currentColor, TRANSITION_DURATION, FPS)
+                    transition(currentColor, currentColor, TRANSITION_DURATION, FPS)
         time.sleep(0.05)
 
 @app.route("/")
@@ -55,8 +55,8 @@ def set_color():
     data = request.get_json()
     print(data["color"])
     color = data["color"] if isOn else "#000000"
-    print("Color: {}".format(color))
-    # transition(currentColor, color, TRANSITION_DURATION, FPS)
+    print("Color: {} isOn: {}".format(color, isOn))
+    transition(currentColor, color, TRANSITION_DURATION, FPS)
     currentColor = color
     return jsonify({"success": True})
 
