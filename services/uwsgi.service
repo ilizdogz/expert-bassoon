@@ -1,0 +1,12 @@
+#put this /etc/systemd/system/uwsgi.service, change dir if needed
+[Unit]
+Description=uWSGI Service
+After=network.target
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/expert-bassoon
+ExecStart=/usr/local/bin/uwsgi --ini /var/www/expert-bassoon/uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
